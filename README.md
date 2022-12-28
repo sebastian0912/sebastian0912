@@ -1,7 +1,5 @@
 ### Hi there 👋
 
-<!--
-**sebastian0912/sebastian0912** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 ## Oiii eu sou a Rafaella Ballerini, criadora de conteúdo de programação e tecnologia!
 <div align="center">
