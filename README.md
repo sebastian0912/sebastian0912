@@ -5,9 +5,9 @@
 
   <a href="https://github.com/sebastian0912">
   
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=sebastian0912&show_icons=true&theme=blue&include_all_commits=true&count_private=true"/>
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=sebastian0912&show_icons=true&theme=red&include_all_commits=true&count_private=true"/>
   
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=sebastian0912&layout=compact&langs_count=7&theme=blue"/>
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=sebastian0912&layout=compact&langs_count=7&theme=red"/>
 </div>
 
 <div style="display: inline_block"><br>
