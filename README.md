@@ -29,7 +29,7 @@
   ##
  
 <div>   
-  <img align="right" alt="Rafa-pic" height="150" style="border-radius:50px;" src="https://cdn-icons-png.flaticon.com/512/1484/1484584.png">
+  <img align="right" alt="Rafa-pic" height="150" style="border-radius:50px;" src="https://cdn-icons-png.flaticon.com/512/4336/4336400.png">
 </div>
   
   <a href="https://www.instagram.com/guarni09201/" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a> 	 
