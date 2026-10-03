@@ -21,11 +21,10 @@ spec:
   clouds: [aws, azure]
   styles: [monolith, modular-monolith, hybrid, microservices]
   designs: [event-driven, hexagonal, multi-tenant, local-first]
-  ships: [web, desktop, mobile, gpu-pipelines]
+  ships: [web, desktop, mobile]
   documents: every-decision   # ADRs, no folclore
 status:
   phase: Building
-  openTo: [architecture, cloud, platform-engineering]
 ```
 
 Diseño y construyo plataformas de punta a punta: desde el dominio y los límites entre servicios hasta la infraestructura, la observabilidad y el instalador que llega al usuario. Me importa que un sistema **escale, se pueda auditar y siga siendo mantenible dentro de cinco años**, no solo que pase la demo.
@@ -50,7 +49,7 @@ Diseño sobre AWS y Azure: contenedores y Kubernetes, edge y gateways, mensajer�
 
 **◆ Ingeniería senior**
 
-Java 21 / Spring Boot, Angular, Python / FastAPI, Electron y Capacitor. CI/CD con GitHub Actions, pruebas que de verdad pueden fallar y agentes de IA en el ciclo de desarrollo.
+Java 21 / Spring Boot, Angular, Python / FastAPI, Electron y Capacitor. CI/CD con GitHub Actions, pruebas automatizadas y agentes de IA en el ciclo de desarrollo.
 
 </td>
 </tr>
@@ -73,5 +72,5 @@ Java 21 / Spring Boot, Angular, Python / FastAPI, Electron y Capacitor. CI/CD co
 <img src="https://github.com/sebastian0912/sebastian0912/raw/output/telemetry.svg" width="100%" alt="Telemetría de GitHub en vivo: contribuciones, commits, días activos, repositorios y lenguajes"/>
 
 <div align="center">
-<sub>Todo lo visual de este perfil es código: <code>scripts/build_assets.py</code> genera los diagramas y <code>scripts/telemetry.py</code> renueva la telemetría cada día con GitHub Actions — sin servicios de terceros.</sub>
+<sub>Los diagramas de este perfil son código (<code>scripts/build_assets.py</code>) y la telemetría se renueva cada día con GitHub Actions (<code>scripts/telemetry.py</code>).</sub>
 </div>

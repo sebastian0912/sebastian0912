@@ -49,8 +49,8 @@ CATEGORICAL = ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300"]
 OTHER = "#475569"
 # Rampa secuencial de un solo tono (azul) para la intensidad semanal.
 SEQ = ["#1e3a5f", "#24518a", "#2d6bb5", "#3987e5", "#6ea8f0", "#a8cbf7"]
-# Lo que GitHub cuenta como lenguaje pero no lo es para un perfil.
-IGNORED = {"Jupyter Notebook", "Batchfile", "Procfile", "Makefile", "Dockerfile"}
+# Marcado, estilos y archivos de build: GitHub los cuenta, pero no son lenguajes de programación.
+IGNORED = {"HTML", "CSS", "SCSS", "Less", "Jupyter Notebook", "Batchfile", "Procfile", "Makefile", "Dockerfile"}
 
 
 def gql(token, variables):
@@ -175,7 +175,7 @@ def render(d):
     if rest / total >= .005:
         items.append(("Otros", rest, OTHER))
     lx, ly, lw = 540, 84, 432
-    out.append(f'<text x="{lx}" y="{ly}" class="mono k" style="font-size:9.5px;letter-spacing:1px">LENGUAJES · POR VOLUMEN DE CÓDIGO</text>')
+    out.append(f'<text x="{lx}" y="{ly}" class="mono k" style="font-size:9.5px;letter-spacing:1px">LENGUAJES DE PROGRAMACIÓN · POR VOLUMEN</text>')
     x = lx
     for i, (n, s, c) in enumerate(items):
         w = s / total * lw

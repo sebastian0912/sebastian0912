@@ -83,7 +83,7 @@ def hero():
              f'<text x="86" y="28" class="m" fill="{FAINT}" font-size="12">~/sebastian0912 › architecture.yaml</text>'
              f'<rect x="{W-214}" y="12" width="190" height="24" rx="12" fill="{GREEN}" fill-opacity=".08" stroke="{GREEN}" stroke-opacity=".4"/>'
              f'<circle class="pulse" cx="{W-198}" cy="24" r="4" fill="{GREEN}"/>'
-             f'<text x="{W-186}" y="28" class="m" fill="{GREEN}" font-size="11">disponible para retos</text>'
+             f'<text x="{W-186}" y="28" class="m" fill="{GREEN}" font-size="11">sistemas en producción</text>'
              f'<line x1="0" y1="48" x2="{W}" y2="48" stroke="{LINE}"/></g>')
     # columna izquierda
     b.append(f'<defs><linearGradient id="nameG" x1="0" x2="1"><stop stop-color="{CYAN}"/><stop offset="1" stop-color="{VIOLET}"/></linearGradient></defs>')
@@ -98,7 +98,7 @@ def hero():
         c, w = chip(x, 318, label, color, fill=color + "14", size=12, h=26)
         b.append(c)
         x += w + 10
-    b.append(f'<text x="48" y="384" class="m" fill="{FAINT}" font-size="12">◉ Bogotá, Colombia · UTC−5   ·   microservicios · event-driven · multi-tenant · GPU</text>')
+    b.append(f'<text x="48" y="384" class="m" fill="{FAINT}" font-size="12">◉ Bogotá, Colombia · UTC−5   ·   monolito modular · microservicios · event-driven</text>')
 
     # topología multinube animada (columna derecha)
     cx = 790
@@ -171,9 +171,9 @@ STYLES = [  # (nombre, cuándo, dónde lo he aplicado)
     ("Monolito", "Un despliegue y un equipo: velocidad máxima mientras se descubre el dominio.",
      "Plataforma empresarial de RR. HH. y nómina."),
     ("Monolito modular", "Módulos con fronteras claras (hexagonal) dentro de un solo artefacto fácil de operar.",
-     "Productos SaaS, gestión documental y verificación."),
+     "Productos SaaS y gestión documental."),
     ("Híbrido", "Núcleo modular y procesos aparte solo donde la carga o el aislamiento lo exigen.",
-     "Analítica de video con IA y motores de automatización."),
+     "Analítica de video con IA y verificación con motor externo."),
     ("Microservicios", "Despliegues y datos independientes por dominio, comunicados por API y eventos.",
      "Plataforma ganadera y modernización empresarial."),
 ]
@@ -268,7 +268,7 @@ def multicloud():
     top, rh = 132, 38
     H = top + len(CLOUD) * rh + 74
     b = [frame(W, H),
-         header(28, 44, "MULTI-CLOUD", "Un diseño, dos proveedores", W, "Terraform · GitHub Actions · OpenTelemetry")]
+         header(28, 44, "MULTI-CLOUD", "Un diseño, dos proveedores", W, "equivalencias por capacidad")]
     mid = W / 2
     b.append(f'<text x="{mid - 110}" y="{top - 16}" text-anchor="end" class="m" fill="{AWS}" font-size="13" font-weight="700" letter-spacing="2">AWS</text>'
              f'<text x="{mid + 110}" y="{top - 16}" class="m" fill="{AZURE}" font-size="13" font-weight="700" letter-spacing="2">AZURE</text>'
@@ -288,7 +288,7 @@ def multicloud():
     fy = top + len(CLOUD) * rh + 36
     b.append(f'<line x1="28" y1="{fy - 18}" x2="{W-28}" y2="{fy - 18}" stroke="{LINE}"/>'
              f'<text x="28" y="{fy + 4}" class="s" fill="{MUTED}" font-size="13.5">'
-             f'Decido por requisitos, costo y operación — no por marca. Cada elección queda en un ADR y en código.</text>')
+             f'Decido por requisitos, costo y operación, no por marca. Cada elección queda documentada en un ADR.</text>')
     css = ""
     return svg(W, H, "Mapa multinube AWS y Azure",
                "Equivalencias entre servicios de AWS y Azure por capacidad: " +
@@ -298,13 +298,13 @@ def multicloud():
 # ---------------------------------------------------------------- tech radar
 RADAR = {  # cuadrante -> [(nombre, anillo 0=adopt 1=trial 2=assess)]
     "Lenguajes & frameworks": [("Java 21 · Spring Boot", 0), ("TypeScript · Angular", 0), ("Python · FastAPI", 0),
-                               ("Electron · Capacitor", 1), (".NET · gRPC", 1), ("Kotlin", 2)],
+                               ("Electron · Capacitor", 0), (".NET · gRPC", 1), ("Kotlin", 2)],
     "Plataformas & nube": [("AWS", 0), ("Azure", 0), ("Docker", 0), ("GitHub Actions", 0),
                            ("Kubernetes", 1), ("Serverless", 2)],
     "Datos & mensajería": [("PostgreSQL", 0), ("Apache Kafka", 0), ("MySQL", 0),
                            ("NATS", 1), ("IndexedDB · local-first", 1), ("Bases vectoriales", 2)],
-    "Arquitectura & prácticas": [("Hexagonal", 0), ("ADRs", 0), ("Microservicios", 0), ("Event-driven", 0),
-                                 ("Agentes IA en el SDLC", 1), ("Multi-tenant", 1), ("Visión por computador", 2), ("Platform engineering", 2)],
+    "Arquitectura & prácticas": [("Monolito modular", 0), ("Hexagonal", 0), ("Microservicios", 0), ("Event-driven", 0), ("ADRs", 0),
+                                 ("Multi-tenant", 0), ("Agentes IA en el SDLC", 1), ("Visión por computador", 1), ("Platform engineering", 2)],
 }
 
 
@@ -337,7 +337,7 @@ def radar():
                 t = (k + 1) / (len(ring_items) + 1)
                 ang = math.radians(a0 + 10 + t * (a1 - a0 - 20))
                 if ring == 0:
-                    rr = (48, 90)[k % 2]
+                    rr = (44, 104, 74)[k % 3] if len(ring_items) > 4 else (48, 90)[k % 2]
                 else:
                     rr = r_in + (r_out - r_in) * (0.5 + (0.2 if k % 2 else -0.2))
                 bx, by = cx + rr * math.cos(ang), cy + rr * math.sin(ang)
