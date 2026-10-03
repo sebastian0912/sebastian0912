@@ -57,32 +57,13 @@ Java 21 / Spring Boot, Angular, Python / FastAPI, Electron y Capacitor. CI/CD co
 
 <br/>
 
-<img src="./assets/catalog.svg" width="100%" alt="Catálogo de sistemas: Rancho Smart, TuApo Platform, Vision AI, Laplace, Voryes, Scripta, Tend y AI Dev Agents"/>
-
-<br/><br/>
-
-<img src="./assets/architecture.svg" width="100%" alt="Arquitectura de referencia: cámaras RTSP, DeepStream en Kubernetes con GPU, NATS, workers, router FastAPI, PostgreSQL con pgvector y frontend Angular"/>
+<img src="./assets/catalog.svg" width="100%" alt="Sistemas que he diseñado o en los que he participado: plataforma ganadera, modernización empresarial, analítica de video con IA, gestión ágil, gestión documental, verificación de antecedentes, hábitos y finanzas, agentes de IA"/>
 
 <br/><br/>
 
 <img src="./assets/multicloud.svg" width="100%" alt="Mapa multinube: equivalencias de servicios entre AWS y Azure por capacidad"/>
 
 <br/><br/>
-
-### ◇ Decisiones que defiendo
-
-Extraídas de los ADRs de mis proyectos. Cada una nació de un problema real.
-
-| ADR | Decisión | Por qué |
-|:---:|---|---|
-| `VIS‑0044` | **Un test que no puede fallar es peor que no tenerlo.** | Sale en verde y ocupa el lugar de la comprobación que nadie escribirá porque "ya está cubierto". |
-| `VIS‑0043` | **Una perilla que no mueve nada es peor que no tenerla.** | Un mando que el operador cree tener miente sobre lo que pasaría al tocarlo. |
-| `VIS‑0040` | **Una regla de autorización se escribe una vez.** | Dos copias del mismo predicado reciben arreglos distintos y terminan divergiendo. |
-| `VIS‑0041` | **La documentación de un incidente no puede mentir.** | Runbooks y guías se leen en plena crisis, cuando nadie tiene tiempo de verificar. |
-| `VIS‑0046` | **El mapa lo verifica el código.** | La arquitectura documentada es lo primero que envejece; un test la mantiene honesta. |
-| `SCR‑0003` | **Sin base de datos de antecedentes.** | Guardar y reutilizar consultas es la optimización obvia… y es exactamente el delito. Retención con purga. |
-
-<br/>
 
 <img src="./assets/radar.svg" width="100%" alt="Tech radar: lenguajes y frameworks, plataformas y nube, datos y mensajería, arquitectura y prácticas, en anillos adopt, trial y assess"/>
 

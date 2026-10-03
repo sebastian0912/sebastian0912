@@ -2,7 +2,7 @@
 
 Uso:  python scripts/build_assets.py
 
-El contenido (proyectos, radar, nube) vive en las listas de abajo: para agregar
+El contenido (sistemas, radar, nube) vive en las listas de abajo: para agregar
 un proyecto o mover una tecnología de anillo se edita aquí y se vuelve a correr.
 La telemetría en vivo la genera scripts/telemetry.py desde Actions.
 """
@@ -167,39 +167,39 @@ def hero():
 
 
 # ------------------------------------------------------------------ catálogo
-PROJECTS = [
-    ("Rancho Smart", "PLATAFORMA GANADERA · TESIS", "microservicios",
-     "46 repositorios: 27 microservicios de dominio orquestados por composers, API Gateway, "
-     "Eureka, Config Server y sincronización por eventos en Kafka; optimización de cruces en Python.",
-     ["Spring Cloud", "Kafka", "Angular", "Python"]),
-    ("TuApo Platform", "MONOLITO → MICROSERVICIOS", "strangler fig",
-     "Migración de un monolito Django a 7 dominios (auth, nómina, RR. HH., documental, automatización, "
-     "IA) con base de datos por servicio, gateway, eventos Kafka y workers de OCR y RPA.",
-     ["Java 21", "Spring Cloud Gateway", "Kafka", "MySQL"]),
-    ("Vision AI", "VISIÓN POR COMPUTADOR · TIEMPO REAL", "GPU · k8s",
-     "Cámaras RTSP → DeepStream en Kubernetes (1 GPU por pod, sharding por cámara) → NATS → workers "
-     "especializados → FastAPI + pgvector, con video en vivo vía WebCodecs.",
-     ["Kubernetes", "DeepStream", "NATS", "FastAPI"]),
-    ("Laplace", "SAAS ÁGIL MULTI-TENANT", "multi-tenant",
-     "Scrum y Kanban para empresas y universidades. Un solo producto con despliegue dual: contenedor "
-     "en la nube y escritorio con el backend Java embebido en Electron.",
-     ["Spring Boot", "Angular", "Electron", "PostgreSQL"]),
-    ("Voryes", "GESTIÓN DOCUMENTAL", "hexagonal",
-     "Núcleo hexagonal en 4 módulos Maven con OCR, servido en web, escritorio y móvil (Capacitor) "
-     "sobre el mismo dominio; respaldos y despliegue de nube automatizados.",
-     ["Java 21", "Angular", "Capacitor", "OCR"]),
-    ("Scripta", "VERIFICACIÓN DE ANTECEDENTES", "privacy by design",
-     "8 fuentes oficiales consultadas por un motor externo con contrato HTTP de 5 rutas. Evidencias con "
-     "huella digital y retención que se borra sola: no existe base de antecedentes.",
-     ["Spring Boot", "Angular 22", "Playwright", "Electron"]),
-    ("Tend", "HÁBITOS + FINANZAS PERSONALES", "local-first",
-     "Los datos viven en el dispositivo (IndexedDB) y la app completa funciona sin conexión. "
-     "Un mismo frontend Angular empaquetado para escritorio y Android.",
-     ["Angular 22", "Dexie", "Electron", "Capacitor"]),
-    ("AI Dev Agents", "AGENTES DE IA EN EL SDLC", "plataforma interna",
-     "Puente que orquesta un pool de agentes de desarrollo con cola, vigilantes y worktrees aislados, "
-     "gobernado desde la plataforma con permisos por rol.",
-     ["Node.js", "Claude Code", "MCP", "systemd"]),
+PROJECTS = [  # (título, contexto, patrón, descripción, etiquetas)
+    ("Plataforma de gestión ganadera", "PROYECTO DE GRADO", "microservicios",
+     "Diseñé una plataforma para administrar fincas —salud animal, producción, ventas y "
+     "finanzas— con servicios independientes que se comunican por eventos.",
+     ["Microservicios", "Eventos", "Java"]),
+    ("Modernización empresarial", "RR. HH. Y NÓMINA", "strangler fig",
+     "Migración gradual de un monolito a servicios por dominio (nómina, contratación, "
+     "documentos, automatización) sin detener la operación diaria de la empresa.",
+     ["Java", "Python", "Eventos"]),
+    ("Analítica de video con IA", "VIDEOVIGILANCIA", "tiempo real",
+     "Participé en una plataforma que analiza cámaras de seguridad en tiempo real para "
+     "detectar eventos y generar alertas, desplegada sobre infraestructura con GPU.",
+     ["Visión por computador", "Python", "Kubernetes"]),
+    ("Gestión ágil para equipos", "PRODUCTO SAAS", "multi-tenant",
+     "Herramienta Scrum y Kanban multiempresa para compañías, universidades y equipos "
+     "pequeños; funciona en la nube o instalada en el equipo.",
+     ["Spring Boot", "Angular", "Electron"]),
+    ("Gestión documental", "PRODUCTO", "hexagonal",
+     "Organiza, indexa y encuentra documentos con OCR desde web, escritorio y móvil, "
+     "compartiendo un mismo núcleo de negocio.",
+     ["Java", "Angular", "OCR"]),
+    ("Verificación de antecedentes", "CUMPLIMIENTO", "privacy by design",
+     "Automatiza consultas a fuentes oficiales y entrega reportes con evidencias. Diseñado "
+     "desde la privacidad: no conserva datos más allá de lo necesario.",
+     ["Java", "Angular", "Automatización"]),
+    ("Hábitos y finanzas personales", "APP PERSONAL", "local-first",
+     "Cruza hábitos y gastos personales. Los datos viven en el dispositivo y la app "
+     "funciona completa sin conexión, en escritorio y Android.",
+     ["Angular", "Electron", "Android"]),
+    ("Agentes de IA para desarrollo", "IA EN EL SDLC", "plataforma interna",
+     "Orquesta agentes de IA que trabajan sobre copias aisladas del código, con cola de "
+     "tareas y permisos controlados desde la plataforma.",
+     ["Node.js", "IA", "Linux"]),
 ]
 
 
@@ -209,7 +209,7 @@ def catalog():
     rows = math.ceil(len(PROJECTS) / 2)
     H = top + rows * chh + (rows - 1) * 16 + 28
     b = [frame(W, H, grid=False),
-         header(28, 44, "SERVICE CATALOG", "Sistemas que he diseñado y construido", W, f"{len(PROJECTS)} sistemas · owner: sebastian0912")]
+         header(28, 44, "SERVICE CATALOG", "Sistemas que he diseñado o en los que he participado", W, f"{len(PROJECTS)} sistemas")]
     for i, (name, kind, pattern, desc, tags) in enumerate(PROJECTS):
         col, row = i % 2, i // 2
         x, y = 28 + col * (cw + gap), top + row * (chh + 16)
@@ -231,91 +231,7 @@ def catalog():
         b.append('</g>')
     css = ""
     return svg(W, H, "Catálogo de sistemas",
-               "Sistemas diseñados por Sebastian Guarnizo: " + "; ".join(f"{p[0]} ({p[1].lower()})" for p in PROJECTS),
-               "".join(b), css)
-
-
-# -------------------------------------------------------- arquitectura (visión)
-def architecture():
-    W, H = 1000, 500
-    b = [frame(W, H),
-         header(28, 44, "REFERENCE ARCHITECTURE", "Visión por computador en tiempo real sobre Kubernetes", W, "event-driven · GPU")]
-    b.append(f'<rect x="20" y="86" width="{W-40}" height="350" rx="14" fill="none" stroke="{CYAN}" stroke-opacity=".35" stroke-dasharray="6 6"/>'
-             f'<rect x="36" y="78" width="196" height="16" fill="{BG}"/>'
-             f'<text x="44" y="90" class="m" fill="{CYAN}" font-size="10.5" letter-spacing="1.5">KUBERNETES · MULTI-TENANT</text>')
-    cols = ["INGESTA", "INFERENCIA GPU", "BUS", "WORKERS", "SERVICIOS", "DATOS · UX"]
-    xs = [40, 196, 352, 470, 640, 812]
-    ws = [140, 140, 100, 150, 150, 150]
-    for c, x, w in zip(cols, xs, ws):
-        b.append(f'<text x="{x + w/2}" y="118" text-anchor="middle" class="m" fill="{FAINT}" font-size="10" letter-spacing="1.5">{c}</text>')
-
-    boxes = {}
-
-    def box(key, x, y, w, h, title, sub="", color=LINE, tcolor=INK):
-        boxes[key] = (x, y, w, h)
-        t = (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="9" fill="{PANEL}" stroke="{color}"/>'
-             f'<text x="{x + w/2}" y="{y + (h/2 + 4 if not sub else h/2 - 3)}" text-anchor="middle" class="s" fill="{tcolor}" font-size="12.5" font-weight="600">{e(title)}</text>')
-        for k, s in enumerate(sub.split("\n") if sub else []):
-            t += f'<text x="{x + w/2}" y="{y + h/2 + 13 + k*13}" text-anchor="middle" class="m" fill="{FAINT}" font-size="9.5">{e(s)}</text>'
-        return t
-
-    b.append(box("cam", 40, 134, 140, 50, "Cámaras IP · NVR", "RTSP") +
-             box("norm", 40, 210, 140, 50, "Normalizador", "GStreamer") +
-             box("relay", 40, 286, 140, 50, "Relay RTSP", "HA × 2 réplicas") +
-             box("ds", 196, 134, 140, 202, "DeepStream", "StatefulSet × 3\n1 GPU por pod\nsharding por cámara\n\ndetector D-FINE\ntracker NvDCF", CAT[0]) +
-             box("nats", 352, 134, 100, 286, "NATS", "detections\ncrops\nalarms\nstats\nvideo.h264", VIOLET) +
-             box("w1", 470, 134, 150, 44, "Rostros", "embeddings") +
-             box("w2", 470, 190, 150, 44, "Objetos abandonados", "GPU") +
-             box("w3", 470, 246, 150, 44, "Merodeo", "reglas por zona") +
-             box("w4", 470, 302, 150, 44, "Pose", "on-demand · escala a 0") +
-             box("router", 640, 134, 150, 112, "Router FastAPI", "REST · WebSocket\nmotor de\nnotificaciones", CAT[2]) +
-             box("h264", 640, 370, 150, 44, "Relay H.264", "video en vivo") +
-             box("pg", 812, 134, 150, 44, "PostgreSQL", "pgvector") +
-             box("obj", 812, 190, 150, 44, "Object storage", "snapshots · clips") +
-             box("ui", 812, 246, 150, 44, "Angular SSR", "WebCodecs · WebRTC") +
-             box("tg", 812, 302, 150, 44, "Alertas", "Telegram"))
-
-    def anchor(k, side):
-        x, y, w, h = boxes[k]
-        return {"r": (x + w, y + h/2), "l": (x, y + h/2), "b": (x + w/2, y + h), "t": (x + w/2, y)}[side]
-
-    def edge(a, sa, bk, sb, color=FAINT, ya=None, yb=None):
-        (x1, y1), (x2, y2) = anchor(a, sa), anchor(bk, sb)
-        y1 = ya if ya is not None else y1
-        y2 = yb if yb is not None else y2
-        if sa == "b":
-            d = f"M{x1},{y1} V{y2}"
-        else:
-            mx = (x1 + x2) / 2
-            d = f"M{x1},{y1} C{mx},{y1} {mx},{y2} {x2 - 5},{y2}"
-        return (f'<path d="{d}" fill="none" stroke="{LINE}" stroke-width="1.5"/>'
-                f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>')
-
-    b.append(f'<defs><marker id="arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto">'
-             f'<path d="M0,0 L8,4 L0,8 z" fill="{MUTED}"/></marker></defs>')
-    edges = [edge("cam", "b", "norm", "t", CYAN), edge("norm", "b", "relay", "t", CYAN),
-             edge("relay", "r", "ds", "l", CYAN, yb=311),
-             edge("ds", "r", "nats", "l", CAT[0], ya=200, yb=200),
-             *[edge("nats", "r", w, "l", VIOLET, ya=boxes[w][1] + 22) for w in ("w1", "w2", "w3", "w4")],
-             edge("nats", "r", "router", "l", VIOLET, ya=240, yb=240),
-             edge("nats", "r", "h264", "l", VIOLET, ya=392, yb=392),
-             *[edge("router", "r", t, "l", CAT[2], ya=152 + k * 26) for k, t in enumerate(("pg", "obj", "ui", "tg"))]]
-    # el relay H.264 alimenta el preview en vivo del router
-    b.append("".join(edges))
-    b.append(f'<path d="M715,370 V250" fill="none" stroke="{LINE}" stroke-width="1.5"/>'
-             f'<path d="M715,370 V250" fill="none" stroke="{CAT[2]}" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>')
-    # pie
-    x = 28
-    for label in ["sharding de video por cámara", "fan-out por subjects", "workers escalables a cero", "56 ADRs"]:
-        c, w = chip(x, 452, label, INK2, fill="#ffffff08", size=11, h=26)
-        b.append(c)
-        x += w + 10
-    b.append(f'<text x="{W-28}" y="470" text-anchor="end" class="m" fill="{FAINT}" font-size="10.5">simplificado · sin datos del cliente</text>')
-    css = ".flow{stroke-dasharray:3 9;animation:dash 1.4s linear infinite}@keyframes dash{to{stroke-dashoffset:-24}}"
-    return svg(W, H, "Arquitectura de referencia: visión por computador en tiempo real",
-               "Cámaras RTSP pasan por un normalizador y un relay en alta disponibilidad hacia DeepStream en un StatefulSet con una GPU por pod; "
-               "las detecciones se publican en NATS, que reparte a workers de rostros, objetos abandonados, merodeo y pose, a un router FastAPI y a un relay H.264. "
-               "El router persiste en PostgreSQL con pgvector y almacenamiento de objetos, y sirve un frontend Angular y alertas por Telegram.",
+               "Sistemas en los que ha trabajado Sebastian Guarnizo: " + "; ".join(f"{p[0]} ({p[1].lower()})" for p in PROJECTS),
                "".join(b), css)
 
 
@@ -371,11 +287,11 @@ RADAR = {  # cuadrante -> [(nombre, anillo 0=adopt 1=trial 2=assess)]
     "Lenguajes & frameworks": [("Java 21 · Spring Boot", 0), ("TypeScript · Angular", 0), ("Python · FastAPI", 0),
                                ("Electron · Capacitor", 1), (".NET · gRPC", 1), ("Kotlin", 2)],
     "Plataformas & nube": [("AWS", 0), ("Azure", 0), ("Docker", 0), ("GitHub Actions", 0),
-                           ("Kubernetes", 1), ("NVIDIA DeepStream", 1), ("Edge GPU", 2)],
+                           ("Kubernetes", 1), ("Serverless", 2)],
     "Datos & mensajería": [("PostgreSQL", 0), ("Apache Kafka", 0), ("MySQL", 0),
-                           ("NATS", 1), ("pgvector", 1), ("IndexedDB · local-first", 1), ("SeaweedFS", 2)],
+                           ("NATS", 1), ("IndexedDB · local-first", 1), ("Bases vectoriales", 2)],
     "Arquitectura & prácticas": [("Hexagonal", 0), ("ADRs", 0), ("Microservicios", 0), ("Event-driven", 0),
-                                 ("Agentes IA en el SDLC", 1), ("Multi-tenant", 1), ("Platform engineering", 2)],
+                                 ("Agentes IA en el SDLC", 1), ("Multi-tenant", 1), ("Visión por computador", 2), ("Platform engineering", 2)],
 }
 
 
@@ -434,7 +350,7 @@ def radar():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    for name, fn in [("hero", hero), ("catalog", catalog), ("architecture", architecture),
+    for name, fn in [("hero", hero), ("catalog", catalog),
                      ("multicloud", multicloud), ("radar", radar)]:
         path = os.path.join(OUT, f"{name}.svg")
         with open(path, "w", encoding="utf-8") as f:
