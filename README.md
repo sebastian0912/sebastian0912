@@ -19,7 +19,8 @@ metadata:
 spec:
   roles: [software-architect, cloud-architect, senior-software-engineer]
   clouds: [aws, azure]
-  designs: [microservices, event-driven, hexagonal, multi-tenant, local-first]
+  styles: [monolith, modular-monolith, hybrid, microservices]
+  designs: [event-driven, hexagonal, multi-tenant, local-first]
   ships: [web, desktop, mobile, gpu-pipelines]
   documents: every-decision   # ADRs, no folclore
 status:
@@ -35,7 +36,7 @@ Diseño y construyo plataformas de punta a punta: desde el dominio y los límite
 
 **◆ Arquitectura de software**
 
-Microservicios con Spring Cloud, arquitectura hexagonal, eventos con Kafka y NATS, migraciones de monolito con *strangler fig*, multi-tenancy y decisiones registradas en ADRs.
+Monolitos, monolitos modulares, arquitecturas híbridas y microservicios: elijo según el problema. Hexagonal, eventos con Kafka y NATS, migraciones con *strangler fig* y decisiones registradas en ADRs.
 
 </td>
 <td width="33%" valign="top">
@@ -57,7 +58,7 @@ Java 21 / Spring Boot, Angular, Python / FastAPI, Electron y Capacitor. CI/CD co
 
 <br/>
 
-<img src="./assets/catalog.svg" width="100%" alt="Sistemas que he diseñado o en los que he participado: plataforma ganadera, modernización empresarial, analítica de video con IA, gestión ágil, gestión documental, verificación de antecedentes, hábitos y finanzas, agentes de IA"/>
+<img src="./assets/styles.svg" width="100%" alt="Estilos de arquitectura: monolito, monolito modular, híbrido y microservicios, con cuándo conviene cada uno y dónde los he aplicado"/>
 
 <br/><br/>
 

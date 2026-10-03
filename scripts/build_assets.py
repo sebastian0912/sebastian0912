@@ -2,8 +2,8 @@
 
 Uso:  python scripts/build_assets.py
 
-El contenido (sistemas, radar, nube) vive en las listas de abajo: para agregar
-un proyecto o mover una tecnología de anillo se edita aquí y se vuelve a correr.
+El contenido (estilos, radar, nube) vive en las listas de abajo: para agregar
+un estilo o mover una tecnología de anillo se edita aquí y se vuelve a correr.
 La telemetría en vivo la genera scripts/telemetry.py desde Actions.
 """
 
@@ -166,73 +166,86 @@ def hero():
                "".join(b), css)
 
 
-# ------------------------------------------------------------------ catálogo
-PROJECTS = [  # (título, contexto, patrón, descripción, etiquetas)
-    ("Plataforma de gestión ganadera", "PROYECTO DE GRADO", "microservicios",
-     "Diseñé una plataforma para administrar fincas —salud animal, producción, ventas y "
-     "finanzas— con servicios independientes que se comunican por eventos.",
-     ["Microservicios", "Eventos", "Java"]),
-    ("Modernización empresarial", "RR. HH. Y NÓMINA", "strangler fig",
-     "Migración gradual de un monolito a servicios por dominio (nómina, contratación, "
-     "documentos, automatización) sin detener la operación diaria de la empresa.",
-     ["Java", "Python", "Eventos"]),
-    ("Analítica de video con IA", "VIDEOVIGILANCIA", "tiempo real",
-     "Participé en una plataforma que analiza cámaras de seguridad en tiempo real para "
-     "detectar eventos y generar alertas, desplegada sobre infraestructura con GPU.",
-     ["Visión por computador", "Python", "Kubernetes"]),
-    ("Gestión ágil para equipos", "PRODUCTO SAAS", "multi-tenant",
-     "Herramienta Scrum y Kanban multiempresa para compañías, universidades y equipos "
-     "pequeños; funciona en la nube o instalada en el equipo.",
-     ["Spring Boot", "Angular", "Electron"]),
-    ("Gestión documental", "PRODUCTO", "hexagonal",
-     "Organiza, indexa y encuentra documentos con OCR desde web, escritorio y móvil, "
-     "compartiendo un mismo núcleo de negocio.",
-     ["Java", "Angular", "OCR"]),
-    ("Verificación de antecedentes", "CUMPLIMIENTO", "privacy by design",
-     "Automatiza consultas a fuentes oficiales y entrega reportes con evidencias. Diseñado "
-     "desde la privacidad: no conserva datos más allá de lo necesario.",
-     ["Java", "Angular", "Automatización"]),
-    ("Hábitos y finanzas personales", "APP PERSONAL", "local-first",
-     "Cruza hábitos y gastos personales. Los datos viven en el dispositivo y la app "
-     "funciona completa sin conexión, en escritorio y Android.",
-     ["Angular", "Electron", "Android"]),
-    ("Agentes de IA para desarrollo", "IA EN EL SDLC", "plataforma interna",
-     "Orquesta agentes de IA que trabajan sobre copias aisladas del código, con cola de "
-     "tareas y permisos controlados desde la plataforma.",
-     ["Node.js", "IA", "Linux"]),
+# ------------------------------------------------------ estilos de arquitectura
+STYLES = [  # (nombre, cuándo, dónde lo he aplicado)
+    ("Monolito", "Un despliegue y un equipo: velocidad máxima mientras se descubre el dominio.",
+     "Plataforma empresarial de RR. HH. y nómina."),
+    ("Monolito modular", "Módulos con fronteras claras (hexagonal) dentro de un solo artefacto fácil de operar.",
+     "Productos SaaS, gestión documental y verificación."),
+    ("Híbrido", "Núcleo modular y procesos aparte solo donde la carga o el aislamiento lo exigen.",
+     "Analítica de video con IA y motores de automatización."),
+    ("Microservicios", "Despliegues y datos independientes por dominio, comunicados por API y eventos.",
+     "Plataforma ganadera y modernización empresarial."),
 ]
 
 
-def catalog():
-    W = 1000
-    cw, chh, gap, top = 466, 186, 20, 96
-    rows = math.ceil(len(PROJECTS) / 2)
-    H = top + rows * chh + (rows - 1) * 16 + 28
-    b = [frame(W, H, grid=False),
-         header(28, 44, "SERVICE CATALOG", "Sistemas que he diseñado o en los que he participado", W, f"{len(PROJECTS)} sistemas")]
-    for i, (name, kind, pattern, desc, tags) in enumerate(PROJECTS):
-        col, row = i % 2, i // 2
-        x, y = 28 + col * (cw + gap), top + row * (chh + 16)
-        accent = CAT[i % 4]
-        b.append(f'<g>'
-                 f'<rect x="{x}" y="{y}" width="{cw}" height="{chh}" rx="12" fill="{PANEL}" stroke="{LINE}"/>'
-                 f'<rect x="{x}" y="{y+18}" width="3" height="34" rx="1.5" fill="{accent}"/>'
-                 f'<text x="{x+22}" y="{y+30}" class="m" fill="{FAINT}" font-size="10" letter-spacing="1.5">{i+1:02d} · {e(kind)}</text>'
-                 f'<text x="{x+22}" y="{y+56}" class="s" fill="{INK}" font-size="21" font-weight="650">{e(name)}</text>')
-        pc, pw = chip(0, 0, pattern, VIOLET, fill=VIOLET + "14", size=10, pad=8, h=20)
-        b.append(f'<g transform="translate({x + cw - 20 - pw:.1f} {y+16})">{pc}</g>')
-        for j, line in enumerate(textwrap.wrap(desc, 66)[:3]):
-            b.append(f'<text x="{x+22}" y="{y+84 + j*19}" class="s" fill="{MUTED}" font-size="13.5">{e(line)}</text>')
-        tx = x + 22
-        for t in tags:
-            c, w = chip(tx, y + chh - 38, t, INK2, fill="#ffffff08", size=10.5, pad=8, h=22)
-            b.append(c)
-            tx += w + 8
-        b.append('</g>')
-    css = ""
-    return svg(W, H, "Catálogo de sistemas",
-               "Sistemas en los que ha trabajado Sebastian Guarnizo: " + "; ".join(f"{p[0]} ({p[1].lower()})" for p in PROJECTS),
-               "".join(b), css)
+def styles():
+    W, H = 1000, 466
+    b = [frame(W, H),
+         header(28, 44, "ARCHITECTURE STYLES", "Elijo el estilo según el problema, no según la moda", W, "monolito → microservicios")]
+    b.append(f'<defs><linearGradient id="spec" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="{W-44}" y2="0"><stop stop-color="{CYAN}"/><stop offset="1" stop-color="{VIOLET}"/></linearGradient>'
+             f'<marker id="tip" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="{VIOLET}"/></marker></defs>'
+             f'<line x1="40" y1="98" x2="{W-44}" y2="98" stroke="url(#spec)" stroke-width="2" marker-end="url(#tip)"/>'
+             f'<text x="40" y="118" class="m" fill="{FAINT}" font-size="10" letter-spacing="1">MENOS PIEZAS · OPERACIÓN SIMPLE</text>'
+             f'<text x="{W-40}" y="118" text-anchor="end" class="m" fill="{FAINT}" font-size="10" letter-spacing="1">AUTONOMÍA · ESCALA INDEPENDIENTE</text>')
+    cw, gap, x0, y0 = 226, 14, 27, 134
+
+    def cyl(x, y, w=26, color=MUTED):
+        return (f'<path d="M{x-w/2},{y} v12 a{w/2},4 0 0,0 {w},0 v-12" fill="{PANEL}" stroke="{color}"/>'
+                f'<ellipse cx="{x}" cy="{y}" rx="{w/2}" ry="4" fill="{PANEL}" stroke="{color}"/>')
+
+    def hexa(x, y, r, color):
+        pts = " ".join(f"{x + r*math.cos(math.radians(60*i+30)):.1f},{y + r*math.sin(math.radians(60*i+30)):.1f}" for i in range(6))
+        return f'<polygon points="{pts}" fill="{PANEL}" stroke="{color}"/>'
+
+    def block(cx, top, w, c):
+        return f'<rect x="{cx-w/2}" y="{top}" width="{w}" height="62" rx="8" fill="{c}" fill-opacity=".10" stroke="{c}"/>'
+
+    def db_under(x, top):
+        return f'<line x1="{x}" y1="{top+62}" x2="{x}" y2="{top+74}" stroke="{LINE}"/>' + cyl(x, top + 78)
+
+    def diagram(i, cx, top):
+        c = CAT[i]
+        if i == 0:  # un bloque en capas
+            return (block(cx, top, 120, c)
+                    + "".join(f'<line x1="{cx-48}" y1="{top+18+k*14}" x2="{cx+48}" y2="{top+18+k*14}" stroke="{c}" stroke-opacity=".6"/>' for k in range(3))
+                    + db_under(cx, top))
+        if i == 1:  # bloque con módulos
+            mods = "".join(f'<rect x="{cx-50 + (k%2)*52}" y="{top+8 + (k//2)*25}" width="48" height="21" rx="4" fill="{PANEL}" stroke="{c}" stroke-dasharray="3 3"/>' for k in range(4))
+            return block(cx, top, 120, c) + mods + db_under(cx, top)
+        if i == 2:  # núcleo modular + workers aparte
+            mods = "".join(f'<rect x="{cx-76 + (k%2)*40}" y="{top+8 + (k//2)*25}" width="36" height="21" rx="4" fill="{PANEL}" stroke="{c}" stroke-dasharray="3 3"/>' for k in range(4))
+            return (block(cx - 38, top, 92, c) + mods
+                    + f'<path d="M{cx+8},{top+31} H{cx+38}" stroke="{c}" stroke-opacity=".7" class="flow" fill="none"/>'
+                    + f'<path d="M{cx+38},{top+16} V{top+50}" stroke="{c}" stroke-opacity=".7" fill="none"/>'
+                    + hexa(cx + 54, top + 16, 15, c) + hexa(cx + 54, top + 50, 15, c)
+                    + db_under(cx - 38, top))
+        # microservicios: cada servicio con su base, unidos por un bus de eventos
+        out = f'<line x1="{cx-84}" y1="{top+44}" x2="{cx+84}" y2="{top+44}" stroke="{VIOLET}" stroke-width="2" class="flow"/>'
+        for k in range(4):
+            hx = cx - 63 + k * 42
+            out += (f'<line x1="{hx}" y1="{top+18}" x2="{hx}" y2="{top+44}" stroke="{c}" stroke-opacity=".6"/>' + hexa(hx, top + 14, 15, c)
+                    + f'<line x1="{hx}" y1="{top+44}" x2="{hx}" y2="{top+68}" stroke="{LINE}"/>' + cyl(hx, top + 72, 18))
+        return out
+
+    for i, (name, when, where) in enumerate(STYLES):
+        x = x0 + i * (cw + gap)
+        cx = x + cw / 2
+        b.append(f'<rect x="{x}" y="{y0}" width="{cw}" height="304" rx="12" fill="{PANEL}" stroke="{LINE}"/>'
+                 f'<text x="{x+18}" y="{y0+26}" class="m" fill="{FAINT}" font-size="10" letter-spacing="1.5">{i+1:02d}</text>'
+                 f'<circle cx="{x+cw-22}" cy="{y0+22}" r="4" fill="{CAT[i]}"/>')
+        b.append(diagram(i, cx, y0 + 40))
+        b.append(f'<text x="{x+18}" y="{y0+164}" class="s" fill="{INK}" font-size="18" font-weight="650">{e(name)}</text>')
+        for j, line in enumerate(textwrap.wrap(when, 30)):
+            b.append(f'<text x="{x+18}" y="{y0+188 + j*18}" class="s" fill="{MUTED}" font-size="13">{e(line)}</text>')
+        b.append(f'<line x1="{x+18}" y1="{y0+240}" x2="{x+cw-18}" y2="{y0+240}" stroke="{LINE}"/>'
+                 f'<text x="{x+18}" y="{y0+257}" class="m" fill="{CYAN}" font-size="9.5" letter-spacing="1">LO HE APLICADO EN</text>')
+        for j, line in enumerate(textwrap.wrap(where, 32)[:2]):
+            b.append(f'<text x="{x+18}" y="{y0+274 + j*15}" class="s" fill="{INK2}" font-size="12">{e(line)}</text>')
+    css = ".flow{stroke-dasharray:3 6;animation:dash 1.2s linear infinite}@keyframes dash{to{stroke-dashoffset:-18}}"
+    return svg(W, H, "Estilos de arquitectura",
+               "Monolito, monolito modular, híbrido y microservicios: cuándo conviene cada uno y dónde los ha aplicado. " +
+               " ".join(f"{n}: {w} Aplicado en: {d}" for n, w, d in STYLES), "".join(b), css)
 
 
 # ---------------------------------------------------------------- multinube
@@ -350,7 +363,7 @@ def radar():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    for name, fn in [("hero", hero), ("catalog", catalog),
+    for name, fn in [("hero", hero), ("styles", styles),
                      ("multicloud", multicloud), ("radar", radar)]:
         path = os.path.join(OUT, f"{name}.svg")
         with open(path, "w", encoding="utf-8") as f:
