@@ -69,6 +69,8 @@ Aplicaciones reales, con instalador y actualización automática. El código es 
 | **[Turnero](https://github.com/sebastian0912/Turnero)** | Turnos, desprendibles, contratación y auditoría para la atención en sede de una empresa de talento humano. |
 | **[Formularios Robots](https://github.com/sebastian0912/Formulario-robots-migracion)** | Consulta automatizada de antecedentes en Policía, Procuraduría, Contraloría, OFAC y otras fuentes, con informe unificado en PDF. |
 
+**Proyecto de grado (en equipo): [Rancho Smart](https://github.com/Rancho-Smart-Proyecto-de-Grado)** · plataforma de gestión ganadera en microservicios con Spring Boot y Spring Cloud (API Gateway, Eureka, Config Server), sincronización de datos por eventos con Kafka y composers por dominio (salud, producción, inventario, finanzas).
+
 ### Experiencia reciente
 
 - **Vigías de Colombia** · Arquitecto de software y líder técnico (equipo de 7). Plataforma escritorio/web/móvil con visión artificial en tiempo real (NVIDIA DeepStream, YOLOX), Java 21 / Spring Boot, PostgreSQL + pgvector y push-to-talk con LiveKit.
